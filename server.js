@@ -72,16 +72,24 @@ app.post('/chat', async (req, res) => {
             let botResponse = response.data.candidates[0].content.parts[0].text;
 
             // Replacing characters in botResponse to HTML tags
+            // botResponse = botResponse.replace(/^\*\s+(.*?)$/gm, '<li>$1</li>');
+            // if (botResponse.includes('<li>')) {
+            //     botResponse = `<ul>${botResponse}</ul>`;
+            // }
+
+            botResponse = botResponse.replace(/(?:^|\n)\*\s+(.*?)(?=\n|$)/g, '<li>$1</li>');
+            if (botResponse.includes('<li>')) {
+                botResponse = botResponse.replace(/(<li>.*?<\/li>)+/g, '<ul>$&</ul>');
+            }
+
+            botResponse = botResponse.replace(/\n\n/g, '<br>');
             botResponse = botResponse.replace(/\n/g, '<br>');
             botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
-            botResponse = botResponse.replace(/^\*\s+(.*?)$/gm, '<li>$1</li>');
-            if (botResponse.includes('<li>')) {
-                botResponse = `<ul>${botResponse}</ul>`;
-            }
+            botResponse = botResponse.replace(/\*(.*?)\*/g, '<i>$1</i>'); 
+            botResponse = botResponse.replace(/\_(.*?)\_/g, '<i>$1</i>'); 
 
             let testRes = "* test";
             testRes = testRes.replace(/^\*\s+(.*?)$/gm, '<li>$1</li>');
-            //console.log(botResponse);
 
             res.json({ botResponse: botResponse });
         })
