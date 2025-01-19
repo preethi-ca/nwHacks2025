@@ -12,7 +12,6 @@
             font-family: 'Mochiy Pop One', serif;
             font-weight: 400;
             font-style: normal;
-            /* background: linear-gradient(135deg, #97b7d6, #ffffff); */
             margin: 0;
             padding: 0;
             display: flex;
@@ -64,36 +63,54 @@
         }
 
         /* Key animation styles */
-        /* Key animation styles */
-.key {
-    position: absolute;
-    left: 700px; /* Position it at the bottom-left corner */
-    bottom: -50px; /* Adjust vertical position */
-    width: 350px; /* Adjust size of the key */
-    animation: bounce 1s ease-in-out infinite; /* Apply continuous bounce animation */
-}
+        .key {
+            position: absolute;
+            left: 700px; /* Position it at the bottom-left corner */
+            bottom: -50px; /* Adjust vertical position */
+            width: 350px; /* Adjust size of the key */
+            animation: bounce 1s ease-in-out infinite; /* Apply continuous bounce animation */
+        }
 
-/* Animation for the key to bounce */
-@keyframes bounce {
-    0% {
-        transform: translateY(0); /* Initial position */
-    }
-    25% {
-        transform: translateY(-15px); /* Move upwards */
-    }
-    50% {
-        transform: translateY(0); /* Return to original position */
-    }
-    75% {
-        transform: translateY(-15px); /* Move upwards again */
-    }
-    100% {
-        transform: translateY(0); /* Back to original position */
-    }
-}
+        /* Animation for the key to bounce */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0); /* Initial position */
+            }
+            25% {
+                transform: translateY(-15px); /* Move upwards */
+            }
+            50% {
+                transform: translateY(0); /* Return to original position */
+            }
+            75% {
+                transform: translateY(-15px); /* Move upwards again */
+            }
+            100% {
+                transform: translateY(0); /* Back to original position */
+            }
+        }
 
+        .building-blocks {
+            position: absolute;
+            bottom: -150px; /* Position the blocks below the text */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
 
-        
+        .block {
+            background-color: #6b4f35;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-size: 18px;
+        }
 
         .next-button {
             font-family: "Mochiy Pop One", serif;
@@ -111,25 +128,27 @@
             bottom: 20px; /* Adjusted for visibility */
         }
 
-.next-button:hover {
-    background: #e60070;
-}
-
+        .next-button:hover {
+            background: #e60070;
+        }
     </style>
 </head>
 <body>
     <div class="chalkboard">
         <div class="content">
-            <h2>An effective password is one that is:</h2>
+            <h2>Build a strong password by using:</h2>
             <ul>
-                <li>Hard to guess (not your pet's name).</li>
-                <li>Unique (don't use the same password everywhere).</li>
-                <li>Strong (uses numbers, symbols, and both BIG and small letters).</li>
-                <br>
-                <li>Tip: Think of it like building a fort—make it strong so no one can get in!</li>
-
+                <li>At least 8 characters.</li>
+                <li>Mix of letters, numbers, and symbols.</li>
+                <li>Avoid real words like ‘password123.’</li>
+            </ul>
+            <h3>Example:</h3>
+            <ul>
+                <li>Weak: "dog123"</li>
+                <li>Strong: "D0g@2023!"</li>
             </ul>
         </div>
+
         <!-- Key Image at the bottom-left corner -->
         <img src="key1.png" alt="Key Icon" class="key">
     </div>
