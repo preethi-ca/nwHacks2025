@@ -1,0 +1,44 @@
+<!-- frontend -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #chatbox {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+        }
+        .user-message, .bot-message {
+            margin-bottom: 10px;
+        }
+        .user-message {
+            color: blue;
+        }
+        .bot-message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Chat with the Chatbot</h1>
+    <form id="chatForm">
+        <input type="text" id="userInput" placeholder="Ask something..." required />
+        <button type="submit">Send</button>
+    </form>
+
+    <div id="chatbox"></div>
+
+    <script src="chatbot.js"></script>
+</body>
+</html>
