@@ -12,12 +12,22 @@ const port = 3000;
 app.use(express.json());
 
 // Middleware to serve static files like JavaScript, CSS
-app.use(express.static('src'));
+// app.use(express.static('src'));
+// app.use(express.static('resources'));
+app.use(express.static(path.join(__dirname, 'src')));
+app.use('/resources', express.static(path.join(__dirname, 'resources')));
 
 // Serve the index.html file at the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
+
+const allowedKeywords = ['password', 'cybersecurity', 'encryption', 'security', 'authentication', 'data breach'];
+
+// Function to check if input is relevant
+function isValidQuery(userInput) {
+    return allowedKeywords.some(keyword => userInput.toLowerCase().includes(keyword));
+}
 
 // API endpoint to handle chatbot requests
 app.post('/chat', async (req, res) => {
@@ -26,21 +36,17 @@ app.post('/chat', async (req, res) => {
         return res.status(400).send({ error: 'No input provided' });
     }
 
-    try {
-        // const response = await axios.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBnEXuH8ZbCzBrbBdYYshS4tbzvsD6WWDM', {
-        // message: userInput
-        // }, {
-        // headers: {
-        //     'API-KEY': process.env.GEMINI_API_KEY,  // Using the Gemini API key from .env
-        // },
-        // });
+    if (!isValidQuery(userInput)) {
+        return res.json({ botResponse: "Oops! I can only chat about passwords and keeping your online stuff safe. Ask me about those and I'll help you out!" });
+    }
 
+    try {
         let data = JSON.stringify({
             "contents": [
                 {
                     "parts": [
                         {
-                            "text": userInput
+                            "text": `Please use the simplest terms as if you're explaining to a kid. Here's the question: ${userInput}`
                         }
                     ]
                 }
@@ -62,32 +68,28 @@ app.post('/chat', async (req, res) => {
 
         axios.request(config)
         .then((response) => {
-            //console.log(response.data);
-            //console.log("PART 1");
-            //console.log(response.data.candidates[0].content.parts[0].text);
-
             // Send the response back to the frontend
-            res.json({ botResponse: response.data.candidates[0].content.parts[0].text });
-            //console.log(typeof botRes);
-            //console.log(typeof botRes);
+            let botResponse = response.data.candidates[0].content.parts[0].text;
+
+            // Replacing characters in botResponse to HTML tags
+            botResponse = botResponse.replace(/\n/g, '<br>');
+            botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
+            botResponse = botResponse.replace(/^\*\s+(.*?)$/gm, '<li>$1</li>');
+            if (botResponse.includes('<li>')) {
+                botResponse = `<ul>${botResponse}</ul>`;
+            }
+
+            let testRes = "* test";
+            testRes = testRes.replace(/^\*\s+(.*?)$/gm, '<li>$1</li>');
+            //console.log(botResponse);
+
+            res.json({ botResponse: botResponse });
         })
         .catch((error) => {
             console.log(error);
         });
-
-        // const botResponse = botRes;
-
-        // console.log("PART 2");
-        // console.log(botRes);  
-        // console.log("PART 3");
-        // console.log(botResponse);        
-
-        // // Send the response back to the frontend
-        // res.json({ botResponse });
-        //console.log(botRes);
     } catch (error) {
         console.error(error);
-        //console.log(process.env.GEMINI_API_KEY);
         res.status(500).send({ error: 'Something went wrong' });
     }
 });
