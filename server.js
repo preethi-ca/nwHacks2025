@@ -6,7 +6,7 @@ const axios = require('axios');
 const path = require('path');  // This is for serving static files like HTML
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
