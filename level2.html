@@ -143,22 +143,6 @@
             display: flex;
         }
 
-        .progress-container {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            height: 15px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background-color: #e60070;
-            width: 0;
-            transition: width 0.3s ease;
-        }
-
         h1 {
             font-size: 2em;
             margin-bottom: 15px;
@@ -406,7 +390,7 @@
         ];
 
         let current = 0;
-        let score = 0;
+        let progress = 0;
         let selectedOption = null; // To track selected option
     
         function goToLevel3() {
@@ -429,10 +413,12 @@
             document.getElementById("feedback").style.display = "none";
             selectedOption = null; // Reset the selected option
 
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
             // Update progress bar
-            const progressBar = document.getElementById("progressBar");
-            const progressPercentage = ((current + 1) / passwordSets.length) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
+            document.getElementById("progressBar").style.width = `${progress}%`;
         }
     
         function selectOption(selectedIndex) {
@@ -465,7 +451,7 @@
             if (selectedOption === questionSet.correct) {
                 feedback.textContent = "Correct! Well done.";
                 feedback.classList.add("correct");
-                score += 10;
+                progress += 20;
             } else {
                 feedback.textContent = `Incorrect. The correct answer was: ${questionSet.options[questionSet.correct].password}.`;
                 feedback.classList.add("incorrect");
@@ -479,8 +465,8 @@
             updateQuestion();
         }
 
-        // Initialize the progress bar to 0% on page load
-        document.getElementById("progressBar").style.width = "0%";
+        // // Initialize the progress bar to 0% on page load
+        // document.getElementById("progressBar").style.width = "0%";
     
         updateQuestion(); // Initialize the first question
     </script>

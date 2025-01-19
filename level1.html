@@ -198,6 +198,7 @@
         ];
 
         let current = 0;
+        let progress = 0;
         let selectedStrength = null;
 
         function updatePassword() {
@@ -235,6 +236,7 @@
             if (selectedStrength === correctStrength) {
                 feedback.textContent = "Great job!";
                 feedback.classList.add("correct");
+                progress += 20;
             } else {
                 feedback.textContent = `Incorrect. The correct answer was: ${correctStrength}.`;
                 feedback.classList.add("incorrect");
@@ -247,7 +249,6 @@
         }
 
         function updateProgressBar() {
-            const progress = ((current + 1) / passwords.length) * 100;
             document.getElementById("progressBar").style.width = `${progress}%`;
         }
 
