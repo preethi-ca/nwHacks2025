@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input-area {
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            background-color: #007BFF;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .feedback {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Strength Checker</h1>
+        <p>Enter a password below to check if it's secure:</p>
+        <div class="input-area">
+            <input type="text" id="passwordInput" placeholder="Enter your password here" />
+            <button onclick="checkPasswordStrength()">Check Password</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <script>
+        function checkPasswordStrength() {
+            const password = document.getElementById("passwordInput").value;
+            const feedback = document.getElementById("feedback");
+
+            if (password.length < 6) {
+                feedback.textContent = "Too short! A secure password should be at least 6 characters long.";
+                feedback.style.color = "red";
+            } else if (!/[A-Z]/.test(password)) {
+                feedback.textContent = "Weak! Include at least one uppercase letter.";
+                feedback.style.color = "orange";
+            } else if (!/[a-z]/.test(password)) {
+                feedback.textContent = "Weak! Include at least one lowercase letter.";
+                feedback.style.color = "orange";
+            } else if (!/[0-9]/.test(password)) {
+                feedback.textContent = "Weak! Include at least one number.";
+                feedback.style.color = "orange";
+            } else if (!/[!@#$%^&*]/.test(password)) {
+                feedback.textContent = "Medium! Add a special character like !, @, #, $, etc., for better security.";
+                feedback.style.color = "blue";
+            } else {
+                feedback.textContent = "Strong! Your password is secure.";
+                feedback.style.color = "green";
+            }
+        }
+    </script>
+</body>
+</html>
