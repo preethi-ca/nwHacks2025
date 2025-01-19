@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .password {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        .options button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .options button:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+        .feedback {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Strength Challenge</h1>
+        <p>Rate the strength of the password shown below:</p>
+        <div class="password" id="password">123456</div>
+        <div class="options">
+            <button onclick="checkStrength('Weak')">Weak</button>
+            <button onclick="checkStrength('Strong')">Strong</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="score" id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const passwords = [
+            { password: "123456", strength: "Weak" },
+            { password: "password", strength: "Weak" },
+            { password: "P@ssw0rd123!", strength: "Strong" },
+            { password: "qwerty", strength: "Weak" },
+            { password: "MySecurePass2024!", strength: "Strong" }
+        ];
+
+        let current = 0;
+        let score = 0;
+
+        function updatePassword() {
+            document.getElementById("password").textContent = passwords[current].password;
+            document.getElementById("feedback").textContent = "";
+        }
+
+        function checkStrength(selection) {
+            const correctStrength = passwords[current].strength;
+
+            if (selection === correctStrength) {
+                document.getElementById("feedback").textContent = "Correct! Well done.";
+                document.getElementById("feedback").style.color = "green";
+                score += 10;
+            } else {
+                document.getElementById("feedback").textContent = `Incorrect. The correct answer was: ${correctStrength}.`;
+                document.getElementById("feedback").style.color = "red";
+            }
+
+            document.getElementById("score").textContent = `Score: ${score}`;
+
+            current = (current + 1) % passwords.length;
+            setTimeout(updatePassword, 2000);
+        }
+
+        updatePassword();
+    </script>
+</body>
+</html>
