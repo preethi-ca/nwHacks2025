@@ -140,32 +140,14 @@
     </div>
 
     <script>
-        // Create bubbles effect
-        function createBubbles() {
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            const size = Math.random() * (60 - 30) + 30; // Random size between 30 and 60px
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${Math.random() * 100}%`;
-            bubble.style.animationDuration = `${Math.random() * 4 + 5}s`; // Random duration between 5 and 9 seconds
-            document.body.appendChild(bubble);
-
-            setTimeout(() => {
-                bubble.remove();
-            }, 9000); // Remove the bubble after animation ends
-        }
-
-        // Create bubbles at a slow pace
-        setInterval(createBubbles, 1000);
-
+        
         // Function to go to the next level after animation
         function goToLevel(levelFile) {
             // Begin bubble animation and wait until complete to redirect
-            document.body.style.pointerEvents = 'none'; // Disable clicks while the transition is in progress
+            // document.body.style.pointerEvents = 'none'; // Disable clicks while the transition is in progress
             setTimeout(() => {
                 window.location.href = levelFile;
-            }, 5000); // Wait for bubble animation to complete before redirecting
+            }); // Wait for bubble animation to complete before redirecting
         }
     </script>
 
