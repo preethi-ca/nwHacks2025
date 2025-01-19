@@ -7,37 +7,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* body {
             padding: 20px;
-        }
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: #f9f9f9;
+            overflow: hidden; // Disable scrolling
+        } 
         #chatbox {
             margin-top: 20px;
             border: 1px solid #ccc;
             padding: 10px;
             height: 300px;
             overflow-y: scroll;
+        } */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat Box */
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Messages Section */
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            background-color: #f1f1f1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* User and Bot Message Bubbles */
+        /* .message {
+            max-width: 75%;
+            padding: 12px 20px;
+            border-radius: 20px;
+            word-wrap: break-word;
+        } */
+
+        /* .message.user {
+            align-self: flex-end;
+            background-color: #4CAF50;
+            color: white;
+        } */
+
+        /* .message.bot {
+            align-self: flex-start;
+            background-color: #e0e0e0;
+            color: black;
+        } */
+
         .user-message, .bot-message {
-            margin-bottom: 10px;
+            max-width: 75%;
+            padding: 12px 20px;
+            border-radius: 20px;
+            word-wrap: break-word;
         }
         .user-message {
-            color: blue;
+            align-self: flex-end;
+            background-color: #4CAF50;
+            color: white;
         }
         .bot-message {
-            color: green;
+            align-self: flex-start;
+            background-color: #e0e0e0;
+            color: black;
+        } 
+
+        /* Typing Indicator */
+        .typing-indicator {
+            align-self: flex-start;
+            color: #999;
+            font-style: italic;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: fit-content;
+            /* margin: 5px auto; /* Center it horizontally */
+        }
+
+        /* Input Container */
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Input Field */
+        #userInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        #userInput:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        /* Send Button */
+        #submit {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+
+        #submit:hover {
+            background-color: #45a049;
+        }
+
+        #submit:focus {
+            outline: none;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            background-color: #f1f1f1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
 
-    <h1>Chat with the Chatbot</h1>
-    <form id="chatForm">
-        <input type="text" id="userInput" placeholder="Ask something..." required />
-        <button type="submit">Send</button>
-    </form>
-
-    <div id="chatbox"></div>
+    <!--<h1>Ask Locky</h1>-->
+    <div class="chat-container">
+        <div class="chat-box">
+            <div class="messages" id="messages">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                Bot is typing...
+            </div>
+            <form class="input-container" id="chatForm">
+                <input type="text" id="userInput" placeholder="Ask Locky..." />
+                <button id="submit">Send</button>
+            </form>
+        </div>
+    </div>
 
     <script src="chatbot.js"></script>
 </body>
