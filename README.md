@@ -1,5 +1,8 @@
 # [PasswordPals](http://password-pals.co/) 🧑‍💻🔑
 
+## Deployed Website 🌐
+You can access the live version of our app here: [http://password-pals.co/](http://password-pals.co/)
+
 ## Inspiration 🌈
 As a kid, you probably made some questionable passwords, like `unicornrainbow123` 🦄🌈.  
 The problem? Weak passwords are easy to guess, leaving your accounts unprotected 🔓.  
