@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        .passwords {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .passwords button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 80%;
+        }
+        .passwords button:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+        .feedback {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Strength Challenge</h1>
+        <p>Select the best (or least secure) password from the options below:</p>
+        <div class="question" id="question">Which is the best password?</div>
+        <div class="passwords" id="passwords">
+            <!-- Buttons will be generated dynamically -->
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="score" id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const passwordSets = [
+            {
+                question: "Which is the best password?",
+                options: [
+                    { password: "123456", strength: "Weak" },
+                    { password: "password", strength: "Weak" },
+                    { password: "P@ssw0rd123", strength: "Strong" },
+                    { password: "qwerty", strength: "Weak" }
+                ],
+                correct: 2
+            },
+            {
+                question: "Which is the least secure password?",
+                options: [
+                    { password: "SuperSecure2024!", strength: "Strong" },
+                    { password: "12345678", strength: "Weak" },
+                    { password: "HelloWorld!99", strength: "Medium" },
+                    { password: "Password1", strength: "Weak" }
+                ],
+                correct: 1
+            },
+            {
+                question: "Which is the best password?",
+                options: [
+                    { password: "iloveyou", strength: "Weak" },
+                    { password: "Admin@123", strength: "Medium" },
+                    { password: "P@ssw0rd!2024", strength: "Strong" },
+                    { password: "letmein", strength: "Weak" }
+                ],
+                correct: 2
+            }
+        ];
+
+        let current = 0;
+        let score = 0;
+
+        function updateQuestion() {
+            const questionSet = passwordSets[current];
+            document.getElementById("question").textContent = questionSet.question;
+
+            const passwordsContainer = document.getElementById("passwords");
+            passwordsContainer.innerHTML = "";
+
+            questionSet.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.textContent = option.password;
+                button.onclick = () => checkAnswer(index);
+                passwordsContainer.appendChild(button);
+            });
+
+            document.getElementById("feedback").textContent = "";
+        }
+
+        function checkAnswer(selectedIndex) {
+            const questionSet = passwordSets[current];
+
+            if (selectedIndex === questionSet.correct) {
+                document.getElementById("feedback").textContent = "Correct! Well done.";
+                document.getElementById("feedback").style.color = "green";
+                score += 10;
+            } else {
+                document.getElementById("feedback").textContent = `Incorrect. The correct answer was: ${questionSet.options[questionSet.correct].password}.`;
+                document.getElementById("feedback").style.color = "red";
+            }
+
+            document.getElementById("score").textContent = `Score: ${score}`;
+
+            current = (current + 1) % passwordSets.length;
+            setTimeout(updateQuestion, 2000);
+        }
+
+        updateQuestion();
+    </script>
+</body>
+</html>
