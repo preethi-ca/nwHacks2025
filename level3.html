@@ -4,55 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Strength Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
-            padding: 0;
-            background-color: #f0f8ff;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: #f9f9f9;
+            overflow: hidden;
         }
+
         .container {
-            max-width: 600px;
-            margin: 50px auto;
+            width: 100vw;
+            height: 100vh;
             padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .input-area {
-            margin: 20px 0;
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #333;
         }
+
+        .input-area {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         input {
             padding: 10px;
-            width: 80%;
+            width: 100%;
             font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 2px solid #bab9b9;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
         }
+
+        input:focus {
+            outline: none;
+            border-color: #2F9FE9;
+            box-shadow: 0 0 5px rgba(47, 159, 233, 0.5);
+        }
+
         button {
             padding: 10px 20px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             font-size: 1em;
-            background-color: #007BFF;
-            color: white;
+            font-family: 'Mochiy Pop One', sans-serif;
+            border-radius: 8px;
+            background-color: #ff007b;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-color: #ff007b;
         }
+
         button:hover {
-            background-color: #0056b3;
+            color: #e60070;
+            border-color: #e60070;
         }
+
+        .button button {
+            box-shadow: 0 4px 6px rgba(255, 182, 193, 0.5); /* Light pink shadow */
+        }
+
         .feedback {
-            margin: 20px 0;
+            margin-top: 20px;
             font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .feedback.error {
+            color: #d93025;
+        }
+
+        .feedback.warning {
+            color: orange;
+        }
+
+        .feedback.medium {
+            color: #2F9FE9;
+        }
+
+        .feedback.success {
+            color: #2a9d2a;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Password Strength Checker</h1>
-        <p>Enter a password below to check if it's secure:</p>
+        <h1>Enter a password below to check if it's secure:</h1>
+        <!-- <p></p> -->
         <div class="input-area">
             <input type="text" id="passwordInput" placeholder="Enter your password here" />
             <button onclick="checkPasswordStrength()">Check Password</button>
@@ -67,24 +129,25 @@
 
             if (password.length < 6) {
                 feedback.textContent = "Too short! A secure password should be at least 6 characters long.";
-                feedback.style.color = "red";
+                feedback.className = "feedback error";
             } else if (!/[A-Z]/.test(password)) {
                 feedback.textContent = "Weak! Include at least one uppercase letter.";
-                feedback.style.color = "orange";
+                feedback.className = "feedback warning";
             } else if (!/[a-z]/.test(password)) {
                 feedback.textContent = "Weak! Include at least one lowercase letter.";
-                feedback.style.color = "orange";
+                feedback.className = "feedback warning";
             } else if (!/[0-9]/.test(password)) {
                 feedback.textContent = "Weak! Include at least one number.";
-                feedback.style.color = "orange";
+                feedback.className = "feedback warning";
             } else if (!/[!@#$%^&*]/.test(password)) {
                 feedback.textContent = "Medium! Add a special character like !, @, #, $, etc., for better security.";
-                feedback.style.color = "blue";
+                feedback.className = "feedback medium";
             } else {
                 feedback.textContent = "Strong! Your password is secure.";
-                feedback.style.color = "green";
+                feedback.className = "feedback success";
             }
         }
     </script>
 </body>
+
 </html>
