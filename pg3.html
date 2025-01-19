@@ -35,6 +35,8 @@
             align-items: center;
             padding: 20px;
             position: relative;
+            z-index: 1; /* Ensures content stays above castle */
+
         }
 
         .chalkboard .content {
@@ -44,6 +46,7 @@
             text-align: center;
             position: relative;
             z-index: 10;
+            
         }
 
         .chalkboard .content h2 {
@@ -68,11 +71,11 @@
         /* Confetti animation */
         @keyframes confetti {
             0% {
-                transform: translateY(0);
+                transform: translateY(0) translateX(0);
                 opacity: 1;
             }
             100% {
-                transform: translateY(500px) rotate(360deg);
+                transform: translateY(500px) translateX(300px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -85,31 +88,39 @@
             height: 10px;
             background-color: #ff007b;
             border-radius: 50%;
-            animation: confetti 2s infinite;
+            animation: confetti 3s infinite;
         }
 
         /* Randomizing the confetti */
         .confetti:nth-child(odd) {
             background-color: #ff7f50;
             animation-duration: 2.5s;
+            left: calc(50% - 20px + (Math.random() * 40px));
+            animation-delay: calc(0.5s + (Math.random() * 2.5s));
         }
 
         .confetti:nth-child(even) {
             background-color: #32cd32;
             animation-duration: 3s;
+            left: calc(50% - 20px + (Math.random() * 40px));
+            animation-delay: calc(0.5s + (Math.random() * 2.5s));
         }
 
         .confetti:nth-child(3n) {
             background-color: #ffb6c1;
             animation-duration: 3.2s;
+            left: calc(50% - 20px + (Math.random() * 40px));
+            animation-delay: calc(0.5s + (Math.random() * 2.5s));
         }
 
         /* Key image animation */
         .key {
             position: absolute;
-            bottom: -80px;
-            width: 250px;
+            bottom: 20px;
+            right: 1020px;
+            width: 350px;
             animation: bounce 1s ease-in-out infinite;
+            z-index: 20;
         }
 
         /* Animation for the key to bounce */
@@ -177,11 +188,11 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: background 0.3s ease, transform 0.3s ease;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: fixed; /* Change to fixed to keep it on the page */
+            right: 20px; /* Position it on the bottom-right */
+            bottom: 20px; /* Adjusted for visibility */
         }
+
 
         .next-button:hover {
             background: #e60070;
@@ -190,11 +201,13 @@
     </style>
 </head>
 <body>
+    <img src="key1.png" alt="Key Icon" class="key">
+
     <div class="chalkboard">
         <div class="content">
             <h2>Strong passwords protect your:</h2>
             <ul>
-                <p>Games</>
+                <p>Games</p>
                 <p>Emails</p>
                 <p>Secrets!</p>
             </ul>
@@ -203,14 +216,6 @@
             <p>Let’s create your first strong password together!</p>
         </div>
 
-        <!-- Castle image -->
-        <div class="castle">
-            <div class="tower"></div>
-            <div class="tower right"></div>
-        </div>
-
-        <!-- Key image at the bottom-left corner -->
-        <img src="key1.png" alt="Key Icon" class="key">
 
         <!-- Confetti animation -->
         <div class="confetti" style="animation-delay: 0s;"></div>
@@ -220,6 +225,8 @@
         <div class="confetti" style="animation-delay: 4s;"></div>
 
     </div>
+
+
 
     <button class="next-button" onclick="goToNextPage()">Continue</button>
     
