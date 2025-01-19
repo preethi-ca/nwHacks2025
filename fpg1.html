@@ -266,10 +266,24 @@
         }
 
         .logo {
-            width: 350px; /* Adjust the width as needed */
-            height: auto; /* Automatically adjust the height to maintain aspect ratio */
-            margin-bottom: 20px; /* Optional: Adjust margin to give space below the image */
-        }
+    width: 350px; /* Adjust the width as needed */
+    height: auto; /* Automatically adjust the height to maintain aspect ratio */
+    margin-bottom: 20px; /* Optional: Adjust margin to give space below the image */
+    position: relative; /* Needed for positioning */
+    animation: moveLogo 2s infinite ease-in-out; /* Animation applied to logo */
+}
+
+@keyframes moveLogo {
+    0% {
+        transform: translateY(0); /* Start at normal position */
+    }
+    50% {
+        transform: translateY(-10px); /* Move logo slightly up */
+    }
+    100% {
+        transform: translateY(0); /* End at normal position */
+    }
+}
 
         
     </style>
@@ -290,6 +304,8 @@
             </div>
         </div>
     </div>
+
+    
     
     
     <header>
