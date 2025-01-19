@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Adventure</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #FFABAB, #FFC3A0);
+            text-align: center;
+            color: #333;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background: #FF6F61;
+            padding: 10px 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #FFD1C1;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #6A0572;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .option {
+            background: #FF6F61;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background 0.3s;
+        }
+        .option:hover {
+            background: #FFABAB;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="ai_chat.html">AI Chat Bot</a>
+        <a href="password_game.html">Password Game</a>
+    </div>
+    <div class="container">
+        <h1>Which page are you interested in using?</h1>
+        <div class="options">
+            <button class="option" onclick="goToAIChat()">AI Chat Bot</button>
+            <button class="option" onclick="goToPasswordGame()">Password Game</button>
+        </div>
+    </div>
+
+    <script>
+        function goToAIChat() {
+            window.location.href = "ai_chat.html";
+        }
+
+        function goToPasswordGame() {
+            window.location.href = "fpg4.html";
+        }
+    </script>
+</body>
+</html>
