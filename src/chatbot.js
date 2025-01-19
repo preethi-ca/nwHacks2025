@@ -41,10 +41,29 @@ document.getElementById('chatForm').addEventListener('submit', async (event) => 
 // Function to append a message to the chatbox
 function appendMessage(message, className) {
     const chatbox = document.getElementById('messages');
+
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('message-container');
+
+    const profilePic = document.createElement('img');
+    profilePic.classList.add('profile-pic');
+
+    // Conditionally set the profile picture based on the sender (user or bot)
+    if (className === 'user-message') {
+        profilePic.src = '/resources/user.png';
+    } else if (className === 'bot-message') {
+        profilePic.src = '/resources/bot.png'; // Or use an SVG for the bot
+    }
+
     const messageDiv = document.createElement('div');
     messageDiv.classList.add(className);
-    messageDiv.textContent = message;
-    chatbox.appendChild(messageDiv);
+    //messageDiv.textContent = message;
+    messageDiv.innerHTML = message; // Use innerHTML to render the HTML content
+    
+    messageContainer.appendChild(profilePic);
+    messageContainer.appendChild(messageDiv);
+
+    chatbox.appendChild(messageContainer);
     //console.log("append message");
 
     // Scroll to the bottom of the chatbox
