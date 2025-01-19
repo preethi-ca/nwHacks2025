@@ -35,6 +35,30 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .top-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .home-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: pink;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-color: pink;
+        }
+
+        .home-button:hover {
+            background-color: #ff69b4;
+            border-color: #ff69b4;
+            color: #ffffff;
+            font-family: 'Mochiy Pop One', sans-serif;
+        }
+
         h1 {
             font-size: 2em;
             margin-bottom: 30px;
@@ -53,7 +77,7 @@
         input {
             padding: 10px;
             width: 100%;
-            max-width: 800px; /* Increased max-width for larger input field */
+            max-width: 800px;
             font-size: 1em;
             border: 2px solid #bab9b9;
             border-radius: 8px;
@@ -80,12 +104,8 @@
         }
 
         button:hover {
-            color: #e60070;
-            border-color: #e60070;
-        }
-
-        .button button {
-            box-shadow: 0 4px 6px rgba(255, 182, 193, 0.5); /* Light pink shadow */
+            color: #ffffff;
+            background-color: #e60070;
         }
 
         .feedback {
@@ -113,9 +133,11 @@
 </head>
 
 <body>
+    <div class="top-buttons">
+        <button class="home-button" onclick="location.href='index.html'">Home</button>
+    </div>
     <div class="container">
         <h1>Enter a password below to check if it's secure:</h1>
-        <!-- <p></p> -->
         <div class="input-area">
             <input type="text" id="passwordInput" placeholder="Enter your password here" />
             <button onclick="checkPasswordStrength()">Check Password</button>
@@ -150,5 +172,5 @@
         }
     </script>
 </body>
-
 </html>
+
