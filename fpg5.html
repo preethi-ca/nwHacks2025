@@ -3,76 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Levels</title>
+    <title>Let's Get This Party Started!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
     <style>
+        /* Container and body styles */
         body {
-            font-family: 'Mochiy Pop One', serif;
-            font-weight: 400;
-            font-style: normal;
+            font-family: "Mochiy Pop One", serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #92a3fd, #9eecff); /* Blue gradient background */
-            text-align: center;
+            background: linear-gradient(135deg, #ffffff, #0066cc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             color: #333;
+            position: relative;
+            overflow: hidden;
         }
+
         .container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #fff; /* Dark purple text */
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        .levels {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             gap: 20px;
-            margin-top: 30px;
+            width: 90%;
+            max-width: 800px;
+            z-index: 2;
         }
-        .level {
-            font-family: 'Mochiy Pop One', serif;
-            font-weight: 400;
-            font-style: normal;
-            background: #ff007b;
-            color: #fff;
-            border: none;
-            border-radius: 15px;
-            padding: 15px 30px;
+
+        /* Bubbles animation */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            animation: bubbleMove 5s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes bubbleMove {
+            0% {
+                transform: scale(0) translateY(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1) translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Key's Icon (Full-Body) */
+        .icon-container {
+            position: relative;
+            flex-shrink: 0;
+            width: 350px;
+            height: auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .icon-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Chat Bubble */
+        .chat-bubble {
+            position: relative;
+            background: #fff;
+            color: #3C3C3C;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            max-width: 70%;
             font-size: 1.2rem;
-            cursor: pointer;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, background 0.3s;
+            animation: fadeIn 1s ease forwards;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: left;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Level Buttons */
+        .level {
+            font-family: 'Mochiy Pop One', sans-serif;
+            margin: 10px 0;
+            padding: 10px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff007b;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+
         .level:hover {
             background: #e60070;
-            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>Which level would you like to start with?</h1>
-        <div class="levels">
-            <button class="level" onclick="goToLevel('level1.html')">Level 1</button>
-            <button class="level" onclick="goToLevel('level2.html')">Level 2</button>
-            <button class="level" onclick="goToLevel('level3.html')">Level 3</button>
+        <!-- Key's Full Body Icon -->
+        <div class="icon-container">
+            <img src="key1.png" alt="Party Icon" class="icon">
+        </div>
+
+        <!-- Chat Bubble -->
+        <div class="chat-bubble">
+            <div class="message">Which level would you like to start with? </div>
+            <div class="message">Level 1 and 2 are for testing your password security knowledge. Level 3 helps you create a secure password you can use.</div>
+            
+            <div class="levels">
+                <button class="level" onclick="goToLevel('level1.html')">Level 1</button>
+                <button class="level" onclick="goToLevel('level2.html')">Level 2</button>
+                <button class="level" onclick="goToLevel('level3.html')">Level 3</button>
+            </div>
         </div>
     </div>
 
     <script>
+        // Create bubbles effect
+        function createBubbles() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * (60 - 30) + 30; // Random size between 30 and 60px
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.animationDuration = `${Math.random() * 4 + 5}s`; // Random duration between 5 and 9 seconds
+            document.body.appendChild(bubble);
+
+            setTimeout(() => {
+                bubble.remove();
+            }, 9000); // Remove the bubble after animation ends
+        }
+
+        // Create bubbles at a slow pace
+        setInterval(createBubbles, 1000);
+
+        // Function to go to the next level after animation
         function goToLevel(levelFile) {
-            window.location.href = levelFile;
+            // Begin bubble animation and wait until complete to redirect
+            document.body.style.pointerEvents = 'none'; // Disable clicks while the transition is in progress
+            setTimeout(() => {
+                window.location.href = levelFile;
+            }, 5000); // Wait for bubble animation to complete before redirecting
         }
     </script>
+
 </body>
 </html>
