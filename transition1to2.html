@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Challenge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #0072ff;
+        }
+        .question, .feedback, .score, .level-up p {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .password {
+            font-size: 1.8em;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .options button {
+            padding: 12px 25px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            background-color: #0072ff;
+            color: white;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 100%;
+        }
+        .options button:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+        .options button:active {
+            background-color: #003f87;
+            transform: scale(0.98);
+        }
+        .feedback {
+            margin-top: 15px;
+            font-size: 1.3em;
+        }
+        .feedback.green {
+            color: #4CAF50;
+        }
+        .feedback.red {
+            color: #F44336;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #0072ff;
+        }
+        .level-up {
+            margin-top: 20px;
+            font-size: 1.4em;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .level-up:hover {
+            background-color: #218838;
+        }
+        .level-up button {
+            background-color: #ff5722;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .level-up button:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Screen -->
+    <div class="container" id="welcome-screen">
+        <h1>Password Strength Challenge</h1>
+        <p>Test your knowledge of password security!</p>
+        <button class="level-up" onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="container" id="game-screen" style="display: none;">
+        <h1>Password Strength Challenge</h1>
+        <p>Select the best (or least secure) password from the options below:</p>
+        <div class="question" id="question">Which is the best password?</div>
+        <div class="passwords" id="passwords">
+            <!-- Buttons will be generated dynamically -->
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="score" id="score">Score: 0</div>
+    </div>
+
+    <!-- Level Up Screen -->
+    <div class="container" id="level-up" style="display: none;">
+        <p>Your score is 100! Would you like to move to the next level?</p>
+        <button class="level-up" onclick="nextLevel()">Yes, Move to Level 2</button>
+        <button class="level-up" onclick="endGame()">No, End Game</button>
+    </div>
+
+    <script>
+        const passwordSetsLevel1 = [
+            { password: "123456", strength: "Weak" },
+            { password: "password", strength: "Weak" },
+            { password: "P@ssw0rd123!", strength: "Strong" },
+            { password: "qwerty", strength: "Weak" },
+            { password: "MySecurePass2024!", strength: "Strong" }
+        ];
+
+        const passwordSetsLevel2 = [
+            {
+                question: "Which is the best password?",
+                options: [
+                    { password: "123456", strength: "Weak" },
+                    { password: "password", strength: "Weak" },
+                    { password: "P@ssw0rd123", strength: "Strong" },
+                    { password: "qwerty", strength: "Weak" }
+                ],
+                correct: 2
+            },
+            {
+                question: "Which is the least secure password?",
+                options: [
+                    { password: "SuperSecure2024!", strength: "Strong" },
+                    { password: "12345678", strength: "Weak" },
+                    { password: "HelloWorld!99", strength: "Medium" },
+                    { password: "Password1", strength: "Weak" }
+                ],
+                correct: 1
+            }
+        ];
+
+        let currentLevel = 1;
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startGame() {
+            document.getElementById("welcome-screen").style.display = 'none';
+            document.getElementById("game-screen").style.display = 'block';
+            updateQuestion();
+        }
+
+        function updateQuestion() {
+            let questionSet;
+
+            if (currentLevel === 1) {
+                questionSet = passwordSetsLevel1[currentQuestion];
+                document.getElementById("question").textContent = `Rate the strength of the password: ${questionSet.password}`;
+                const buttons = document.getElementById("passwords");
+                buttons.innerHTML = `
+                    <button class="options" onclick="checkStrength('Weak')">Weak</button>
+                    <button class="options" onclick="checkStrength('Strong')">Strong</button>
+                `;
+            } else if (currentLevel === 2) {
+                questionSet = passwordSetsLevel2[currentQuestion];
+                document.getElementById("question").textContent = questionSet.question;
+                const buttons = document.getElementById("passwords");
+                buttons.innerHTML = '';
+                questionSet.options.forEach((option, index) => {
+                    const button = document.createElement("button");
+                    button.textContent = option.password;
+                    button.classList.add("options");
+                    button.onclick = () => checkAnswer(index);
+                    buttons.appendChild(button);
+                });
+            }
+
+            document.getElementById("feedback").textContent = "";
+        }
+
+        function checkStrength(selection) {
+            const questionSet = passwordSetsLevel1[currentQuestion];
+            if (selection === questionSet.strength) {
+                document.getElementById("feedback").textContent = "Correct! Well done.";
+                document.getElementById("feedback").className = "feedback green";
+                score += 10;
+            } else {
+                document.getElementById("feedback").textContent = `Incorrect. The correct answer was: ${questionSet.strength}.`;
+                document.getElementById("feedback").className = "feedback red";
+            }
+
+            document.getElementById("score").textContent = `Score: ${score}`;
+            currentQuestion++;
+
+            if (currentQuestion >= passwordSetsLevel1.length) {
+                if (score >= 50) {
+                    document.getElementById("level-up").style.display = 'block';
+                } else {
+                    endGame();
+                }
+            } else {
+                setTimeout(updateQuestion, 2000);
+            }
+        }
+
+        function checkAnswer(selectedIndex) {
+            const questionSet = passwordSetsLevel2[currentQuestion];
+
+            if (selectedIndex === questionSet.correct) {
+                document.getElementById("feedback").textContent = "Correct! Well done.";
+                document.getElementById("feedback").className = "feedback green";
+                score += 10;
+            } else {
+                document.getElementById("feedback").textContent = `Incorrect. The correct answer was: ${questionSet.options[questionSet.correct].password}.`;
+                document.getElementById("feedback").className = "feedback red";
+            }
+
+            document.getElementById("score").textContent = `Score: ${score}`;
+            currentQuestion++;
+
+            if (currentQuestion >= passwordSetsLevel2.length) {
+                endGame();
+            } else {
+                setTimeout(updateQuestion, 2000);
+            }
+        }
+
+        function nextLevel() {
+            currentLevel++;
+            currentQuestion = 0;
+            document.getElementById("level-up").style.display = 'none';
+            updateQuestion();
+        }
+
+        function endGame() {
+            document.getElementById("game-screen").style.display = 'none';
+            alert("Game Over! Your final score is: " + score);
+        }
+    </script>
+</body>
+</html>
