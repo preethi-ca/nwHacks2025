@@ -53,12 +53,14 @@ app.post('/chat', async (req, res) => {
             ]
         });
 
+        const apiKey = process.env.GEMINI_API_KEY;
+
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBnEXuH8ZbCzBrbBdYYshS4tbzvsD6WWDM',
+            url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}',
             headers: { 
-              'x-api-key': 'AIzaSyBnEXuH8ZbCzBrbBdYYshS4tbzvsD6WWDM', 
+              'x-api-key': apiKey, 
               'Content-Type': 'application/json'
             },
             data : data
