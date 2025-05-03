@@ -12,14 +12,19 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Middleware to serve static files like JavaScript, CSS
-// app.use(express.static('src'));
-// app.use(express.static('resources'));
-app.use(express.static(path.join(__dirname, 'src')));
-app.use('/resources', express.static(path.join(__dirname, 'resources')));
+// app.use(express.static(path.join(__dirname, 'src'))); // serving only src folder
+// app.use('/resources', express.static(path.join(__dirname, 'resources'))); // adding resources to server
+app.use(express.static(__dirname)); // serving root
 
 // Serve the index.html file at the root URL
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+    // res.sendFile(path.join(__dirname, 'src', 'chatbot.html')); // for opening the chatbot itself
+    res.sendFile(path.join(__dirname, 'index.html')); // for opening home page
+});
+
+// Serve the chatbot.html file at src
+app.get('/chat', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/chatbot.html'));
 });
 
 const allowedKeywords = ['password', 'cybersecurity', 'encryption', 'security', 'authentication', 'data breach'];
