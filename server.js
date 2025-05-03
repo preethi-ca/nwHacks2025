@@ -58,10 +58,10 @@ app.post('/chat', async (req, res) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}',
+            url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
             headers: { 
-              'x-api-key': apiKey, 
-              'Content-Type': 'application/json'
+                //'x-api-key': apiKey, 
+                'Content-Type': 'application/json'
             },
             data : data
         };
@@ -96,7 +96,13 @@ app.post('/chat', async (req, res) => {
             res.json({ botResponse: botResponse });
         })
         .catch((error) => {
-            console.log(error);
+            //console.log(error);
+            if (error.response) {
+                console.error('Error status:', error.response.status);
+                console.error('Error data:', error.response.data);
+            } else {
+                console.error('Error message:', error.message);
+            }
         });
     } catch (error) {
         console.error(error);
