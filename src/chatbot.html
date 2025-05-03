@@ -1,0 +1,183 @@
+<!-- frontend -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: #FBFBFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            width: 75%;
+            height: 75%;
+            border-radius: 10px;
+            /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat Box */
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Messages Section */
+
+        /* .message-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        } */
+        
+        .profile-pic {
+            width: 40px; /* Size of the profile picture */
+            height: 40px; /* Keep the image square */
+            border-radius: 50%; /* Make the image circular */
+            margin-right: 10px; /* Space between the profile picture and the message */
+        }
+
+        .messages {
+            flex: 1;
+            /*padding: 20px;*/
+            background-color: #FBFBFF;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            scroll-behavior: smooth;
+        }
+
+        .message-container {
+            display: flex;
+            width: 100%;
+        }
+
+        .user-message, .bot-message {
+            padding: 18px 24px;
+            border-radius: 20px;
+            border: 1px solid #A7BAD3;
+            width: 100%;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+            font-size: 14px;
+            background-color: #FDFDFF;
+            color: #1B2559;
+            line-height: 24px;
+        }
+        /* .user-message {
+            align-self: flex-end;
+        }
+        .bot-message {
+            align-self: flex-start;
+        }  */
+
+        /* Typing Indicator */
+        .typing-indicator {
+            align-self: flex-start;
+            color: #999;
+            font-style: italic;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: fit-content;
+            font-size: 14px;
+            /* margin: 5px auto; /* Center it horizontally */
+        }
+
+        /* Input Container */
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background-color: #FBFBFF;
+        }
+
+        /* Input Field */
+        #userInput {
+            flex: 1;
+            padding: 10px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-family: 'Mochiy Pop One', sans-serif;
+            margin-right: 10px;
+            border-radius: 30px;
+            border: 1px solid #E2E8F0;
+        }
+
+        #userInput:focus {
+            outline: none;
+            border-color: #F833A9;
+        }
+
+        /* Send Button */
+        #submit {
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            font-family: 'Mochiy Pop One', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 12px;
+            background: linear-gradient(15deg, #F833A9 26.3%, #41ABFF 86.4%);
+            box-shadow: 0px 7px 25px -10px rgba(96, 60, 255, 0.48);
+        }
+
+        #submit:hover {
+            background: linear-gradient(15deg, #EB269C 26.3%, #349EF2 86.4%);
+        }
+
+        #submit:focus {
+            outline: none;
+        }
+
+        /* List */
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--<h1>Ask Locky</h1>-->
+    <div class="chat-container">
+        <div class="chat-box">
+            <div class="messages" id="messages">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                Key is typing...
+            </div>
+            <form class="input-container" id="chatForm">
+                <input type="text" id="userInput" placeholder="Ask Key..." />
+                <button id="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="src/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: #f9f9f9;
+            overflow: hidden; /* Disable scrolling */
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        h1 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .password {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        .options {
+            margin: 0px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .options button {
+            font-family: 'Mochiy Pop One', sans-serif;
+            margin: 10px 0;
+            padding: 10px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 2px solid #bab9b9;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center; /* Center text inside buttons */
+        }
+
+        .options button.selected {
+            background-color: #EDF7FF;
+            color: #2F9FE9;
+            border: 2px solid #2F9FE9;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+            padding: 0 15%;
+        }
+
+        .buttons button {
+            font-family: 'Mochiy Pop One', sans-serif;
+            padding: 10px;
+            width: 15%; /* Adjust width automatically based on content */
+            min-width: 80px; /* Set a minimum width for consistent sizing */
+            border: none;
+            border-radius: 8px;
+            background-color: #ff007b;
+            color: #ffffff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buttons button:hover {
+            background-color: #e60070;
+        }
+
+        .pink-button {
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: pink;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .pink-button:hover {
+            background-color: #ff69b4;
+        }
+
+        .feedback-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .feedback-container.correct {
+            background-color: #d4f8d4;
+            color: #2a9d2a;
+            display: flex;
+        }
+
+        .feedback-container.incorrect {
+            background-color: #fddddd;
+            color: #d93025;
+            display: flex;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            height: 15px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #ff007b;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-buttons">
+            <button class="pink-button" onclick="location.href='level2.html'">Go to Level 2</button>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <h1>Rate the strength of the password shown below:</h1>
+        <div class="password" id="password">P@ssw0rd</div>
+        <div class="options">
+            <button id="weakBtn" onclick="selectStrength('Weak')">Weak</button>
+            <button id="strongBtn" onclick="selectStrength('Strong')">Strong</button>
+        </div>
+        <div class="buttons">
+            <button onclick="skipPassword()">Next</button>
+            <button onclick="checkStrength()">Check</button>
+        </div>
+        <div id="feedback" class="feedback-container"></div>
+    </div>
+    <script>
+        const passwords = [
+            { password: "123456", strength: "Weak" },
+            { password: "password", strength: "Weak" },
+            { password: "P@ssw0rd123!", strength: "Strong" },
+            { password: "qwerty", strength: "Weak" },
+            { password: "My$3cur3P@ss", strength: "Strong" },
+        ];
+
+        let current = 0;
+        let progress = 0;
+        let selectedStrength = null;
+
+        function updatePassword() {
+            document.getElementById("password").textContent = passwords[current].password;
+            const feedback = document.getElementById("feedback");
+            feedback.style.display = "none";
+            feedback.textContent = "";
+            selectedStrength = null;
+            document.getElementById("weakBtn").classList.remove("selected");
+            document.getElementById("strongBtn").classList.remove("selected");
+            updateProgressBar();
+        }
+
+        function selectStrength(strength) {
+            selectedStrength = strength;
+            if (strength === "Weak") {
+                document.getElementById("weakBtn").classList.add("selected");
+                document.getElementById("strongBtn").classList.remove("selected");
+            } else {
+                document.getElementById("strongBtn").classList.add("selected");
+                document.getElementById("weakBtn").classList.remove("selected");
+            }
+        }
+
+        function checkStrength() {
+            const feedback = document.getElementById("feedback");
+            if (!selectedStrength) {
+                alert("Please select Weak or Strong before checking.");
+                return;
+            }
+            const correctStrength = passwords[current].strength;
+            feedback.className = "feedback-container";
+            feedback.style.display = "flex";
+
+            if (selectedStrength === correctStrength) {
+                feedback.textContent = "Great job!";
+                feedback.classList.add("correct");
+                progress += 20;
+            } else {
+                feedback.textContent = `Incorrect. The correct answer was: ${correctStrength}.`;
+                feedback.classList.add("incorrect");
+            }
+        }
+
+        function skipPassword() {
+            current = (current + 1) % passwords.length;
+            updatePassword();
+        }
+
+        function updateProgressBar() {
+            document.getElementById("progressBar").style.width = `${progress}%`;
+        }
+
+        updatePassword();
+    </script>
+</body>
+</html>

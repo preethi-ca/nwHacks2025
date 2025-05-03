@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Chalkboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mochiy Pop One', serif;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chalkboard {
+            background-color: #2d2c2c; /* Green chalkboard color */
+            border: 20px solid #6b4f35; /* Brown edges for the chalkboard frame */
+            border-radius: 10px;
+            width: 60%; /* Smaller chalkboard width */
+            height: 60%; /* Smaller chalkboard height */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-start; /* Align content to the left */
+            align-items: flex-start; /* Align content to the top */
+            padding: 20px; /* Padding inside the chalkboard */
+            position: relative;
+        }
+
+        .chalkboard .content {
+            color: white;
+            font-family: 'Mochiy Pop One', serif;
+            font-size: 24px;
+            text-align: left; /* Align the text to the left */
+            padding-left: 10px; /* Left padding */
+            position: relative;
+            z-index: 10;
+            width: 80%; /* Adjust width for content */
+        }
+
+        .chalkboard .content h2 {
+            font-family: 'Mochiy Pop One', serif;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .chalkboard .content ul {
+            list-style-type: none;
+            padding-left: 20px; /* Adjust list padding for alignment */
+        }
+
+        .chalkboard .content li {
+            font-family: 'Mochiy Pop One', serif;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* Key animation styles */
+        .key {
+            position: absolute;
+            left: 700px; /* Position it at the bottom-left corner */
+            bottom: -50px; /* Adjust vertical position */
+            width: 350px; /* Adjust size of the key */
+            animation: bounce 1s ease-in-out infinite; /* Apply continuous bounce animation */
+        }
+
+        /* Animation for the key to bounce */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0); /* Initial position */
+            }
+            25% {
+                transform: translateY(-15px); /* Move upwards */
+            }
+            50% {
+                transform: translateY(0); /* Return to original position */
+            }
+            75% {
+                transform: translateY(-15px); /* Move upwards again */
+            }
+            100% {
+                transform: translateY(0); /* Back to original position */
+            }
+        }
+
+        .building-blocks {
+            position: absolute;
+            bottom: -150px; /* Position the blocks below the text */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .block {
+            background-color: #6b4f35;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .next-button {
+            font-family: "Mochiy Pop One", serif;
+            font-size: 1.0rem;
+            padding: 10px 20px;
+            color: #fff;
+            background: #ff007b;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: fixed; /* Change to fixed to keep it on the page */
+            right: 20px; /* Position it on the bottom-right */
+            bottom: 20px; /* Adjusted for visibility */
+        }
+
+        .next-button:hover {
+            background: #e60070;
+        }
+    </style>
+</head>
+<body>
+    <div class="chalkboard">
+        <div class="content">
+            <h2>Build a strong password by using:</h2>
+            <ul>
+                <li>At least 8 characters.</li>
+                <li>Mix of letters, numbers, and symbols.</li>
+                <li>Avoid real words like ‘password123.’</li>
+        </div>
+
+        <!-- Key Image at the bottom-left corner -->
+        <img src="key1.png" alt="Key Icon" class="key">
+    </div>
+
+    <button class="next-button" onclick="goToNextPage()">Continue</button>
+    
+    <script>
+        function goToNextPage() {
+            // Redirect to the game page
+            window.location.href = "pg3.html";
+        }
+    </script>
+    
+</body>
+</html>

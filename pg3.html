@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castle Protection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mochiy Pop One', serif;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Hide any overflow from confetti */
+            background-color: #f2f2f2;
+        }
+
+        .chalkboard {
+            background-color: #2d2c2c; /* Dark background to match theme */
+            border: 20px solid #6b4f35; /* Brown edges for the chalkboard frame */
+            border-radius: 10px;
+            width: 70%; /* Larger chalkboard width */
+            height: 70%; /* Larger chalkboard height */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1; /* Ensures content stays above castle */
+
+        }
+
+        .chalkboard .content {
+            color: white;
+            font-family: 'Mochiy Pop One', serif;
+            font-size: 24px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            
+        }
+
+        .chalkboard .content h2 {
+            font-family: 'Mochiy Pop One', serif;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .chalkboard .content ul {
+            list-style-type: none;
+            padding-left: 20px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .chalkboard .content li {
+            font-family: 'Mochiy Pop One', serif;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* Key image animation */
+        .key {
+            position: absolute;
+            bottom: 20px;
+            right: 1020px;
+            width: 350px;
+            animation: bounce 1s ease-in-out infinite;
+            z-index: 20;
+        }
+
+        /* Animation for the key to bounce */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-15px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .castle {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #8b4513;
+            border-radius: 5px;
+            margin-bottom: 40px;
+        }
+
+        .castle::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 50px;
+            background-color: #8b4513;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .castle .tower {
+            position: absolute;
+            top: -50px;
+            width: 50px;
+            height: 100px;
+            background-color: #a0522d;
+            left: 20px;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .castle .tower.right {
+            left: 230px;
+        }
+
+        .next-button {
+            font-family: "Mochiy Pop One", serif;
+            font-size: 1.0rem;
+            padding: 10px 20px;
+            color: #fff;
+            background: #ff007b;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.3s ease;
+            position: fixed; /* Change to fixed to keep it on the page */
+            right: 20px; /* Position it on the bottom-right */
+            bottom: 20px; /* Adjusted for visibility */
+        }
+
+
+        .next-button:hover {
+            background: #e60070;
+        }
+
+    </style>
+</head>
+<body>
+    <img src="key1.png" alt="Key Icon" class="key">
+
+    <div class="chalkboard">
+        <div class="content">
+            <h2>Strong passwords protect your:</h2>
+            <ul>
+                <p>Games</p>
+                <p>Emails</p>
+                <p>Secrets!</p>
+            </ul>
+            <p>If it’s easy to guess, someone could 
+                <br>get in and mess up your account. Keep your castle safe!</p>
+            <p>Let’s create your first strong password together!</p>
+        </div>
+
+
+        <!-- Confetti animation -->
+        <div class="confetti" style="animation-delay: 0s;"></div>
+        <div class="confetti" style="animation-delay: 1s;"></div>
+        <div class="confetti" style="animation-delay: 2s;"></div>
+        <div class="confetti" style="animation-delay: 3s;"></div>
+        <div class="confetti" style="animation-delay: 4s;"></div>
+
+    </div>
+
+
+
+    <button class="next-button" onclick="goToNextPage()">Continue</button>
+    
+    <script>
+        function goToNextPage() {
+            // Redirect to the game page
+            window.location.href = "fpg4.html";
+        }
+    </script>
+</body>
+</html>
