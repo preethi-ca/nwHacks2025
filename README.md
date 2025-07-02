@@ -3,6 +3,11 @@
 ## Deployed Website 🌐
 You can access the live version of our app here: [http://password-pals.co/](http://password-pals.co/)
 
+## Links 🔗
+- **YouTube Presentation**: [Watch Our Demo](https://www.youtube.com/watch?v=4GVKbHLR84o)
+- **Figma Design**: [Prototype](https://www.figma.com/design/aeC9BKrBQCv8A5s7OFwaSW/nwHacks-2025?node-id=121-1716&t=Uv45fEJhPvkTfMBI-1)
+- **Devpost**: [Devpost](https://devpost.com/software/passpals)
+- 
 ## Inspiration 🌈
 As a kid, you probably made some questionable passwords, like `unicornrainbow123` 🦄🌈.  
 The problem? Weak passwords are easy to guess, leaving your accounts unprotected 🔓.  
